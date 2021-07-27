@@ -10,7 +10,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     margin-left: auto;
     margin-right: auto;
-    max-width: 600px;
+    max-width: 1000px;
     width: 100%;
 }
 
@@ -67,13 +67,14 @@ h3#next-block-text{
     margin-left: 10px;
 }
 
-#start-button { 
+#start-button,
+#restart-button { 
     margin-left: auto;
     margin-right: auto;
     max-width: 170px;
     width: 100%;
     display: block;
-    margin-bottom: 50px;
+    /* margin-bottom: 50px; */
     margin-top: 30px;
     background: #339DFF;
     color: white;
@@ -83,7 +84,8 @@ h3#next-block-text{
     cursor: pointer;
 }
 
-#start-button:hover {
+#start-button:hover,
+#restart-button:hover {
     background: #fff;
     color: #339DFF;
     box-shadow: 0 4px 4px rgba(83, 100, 255, 0.32);
@@ -111,4 +113,9 @@ h3#header-level {
 
 .bottom-stats {
     background-color: rgba(11, 28, 56, 0.8);
+}
+
+.the-buttons {
+    margin-right: 20px;
+    width: 250px;
 }

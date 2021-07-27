@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const linesDisplay = document.querySelector('#lines');
     const levelDisplay = document.querySelector('#level');
     const startBtn = document.querySelector('#start-button');
+    const restartBtn = document.querySelector('#restart-button');
     const width = 10;
     const perLevel = 10; // 10 lines per level
     let timerId;
@@ -290,17 +291,18 @@ document.addEventListener('DOMContentLoaded', () => {
     startBtn.addEventListener('click', () => {
 
         // Starts new game
-        /*
         if(isGameOver === true) {
             startNewGame();
+            // Changes the statuses
+            gameStatus.innerHTML = '';
+            
         }
-        */
         // Pauses the game
-        if(timerId) {
+        else if(timerId) {
             clearInterval(timerId);
             timerId = null;
             isPaused = true;
-            startBtn.innerHTML = "Resume Game";        
+            startBtn.innerHTML = "Resume Game &nbsp; &#9658;"        
         }
         // Unpauses / Starts the game for the first time
         else {
@@ -308,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
             draw();
             timerId = setInterval(moveDown, levelSpeed);
             nextRandom = Math.floor(Math.random() * theTetrominoes.length);
-            startBtn.innerHTML = "Pause Game";        
+            startBtn.innerHTML = "Pause Game &nbsp; &#9646;&#9646;";        
 
             // If the player hits the "Start" button for the very first time, show the Next Block too.
             // The reason we set firstStarted to true is to prevent players from start/pausing, changing the next block on every pause.
@@ -321,6 +323,62 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
     })
+
+    // Restarts the game. For debugging purposes for now.
+    restartBtn.addEventListener('click', () => {
+
+        // Will have a prompt button here.
+
+        startNewGame();
+
+    })
+
+    // Resets everything
+    // Called if the player either clicks "Restart New Game" or it's "Game Over"
+    function startNewGame() {
+
+
+        for (let i = 0; i < numOfBlocks; i +=width) {
+
+            // This is if an entire row is filled, remove that row and add score (like in Tetris!)
+            const row = [i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9];
+
+            row.forEach(index => {
+                squares[index].classList.remove('taken');
+                squares[index].classList.remove('tetromino');
+                squares[index].style.backgroundColor = '';
+            })
+
+            // Removes the completed row
+            const squaresRemoved = squares.splice(i, width);
+            squares = squaresRemoved.concat(squares);
+
+            // Adds a new row to replace the completed (and deleted) row.
+            squares.forEach(cell => grid.appendChild(cell))
+
+        }
+
+        // Resets everything
+        levelSpeed = 1000;
+
+        level = 1;
+        levelDisplay.innerHTML = level;
+
+        lines = 0;
+        linesDisplay.innerHTML = lines;
+
+        score = 0;
+        scoreDisplay.innerHTML = score;
+
+        isGameOver = false;
+        isPaused = false;
+
+        //undraw();
+        //draw();
+        //clearInterval(timerId);
+        //timerId = setInterval(moveDown, levelSpeed);
+
+    }
 
     // Adds score to the score total
     function addScore() {
@@ -371,7 +429,6 @@ document.addEventListener('DOMContentLoaded', () => {
             levelUp();
         }
 
-
     }
 
     // Game over function
@@ -384,25 +441,6 @@ document.addEventListener('DOMContentLoaded', () => {
             isGameOver = true; // Sets this to true and shows a 'Play New Game' button
             clearInterval(timerId); // Stops the automatic dropdown
         }
-    }
-
-    // Clears the score and the board to start a new game
-    function startNewGame() {
-
-        for (let i = 0; i < numOfBlocks; i +=width) {
-
-            // Removes the completed row
-            const squaresRemoved = squares.splice(i, width);
-            squares = squaresRemoved.concat(squares);
-
-            // Adds a new row to replace the completed (and deleted) row.
-            squares.forEach(cell => grid.appendChild(cell))
-
-        }
-
-        isGameOver = false;
-        isPaused = false;
-        scoreDisplay.innerHTML = 0;
     }
 
     // Increases the level by 1 (the speed goes up too)

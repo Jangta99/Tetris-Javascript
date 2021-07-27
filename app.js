@@ -255,8 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     currentPosition += prevPositionFactor;
                 }
             }
-            
-
+        
       }
 
     }
@@ -293,9 +292,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Starts new game
         if(isGameOver === true) {
             startNewGame();
-            // Changes the statuses
-            gameStatus.innerHTML = '';
-            
         }
         // Pauses the game
         else if(timerId) {
@@ -328,8 +324,11 @@ document.addEventListener('DOMContentLoaded', () => {
     restartBtn.addEventListener('click', () => {
 
         // Will have a prompt button here.
+        let isRestart = confirm("Are you sure you want to restart the game?");
 
-        startNewGame();
+        if (isRestart) {
+            startNewGame();
+        } 
 
     })
 
@@ -337,10 +336,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Called if the player either clicks "Restart New Game" or it's "Game Over"
     function startNewGame() {
 
-
+        // Scans each row (10 separate cells per row)
         for (let i = 0; i < numOfBlocks; i +=width) {
 
-            // This is if an entire row is filled, remove that row and add score (like in Tetris!)
+            // This is if an entire row is filled
             const row = [i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9];
 
             row.forEach(index => {
@@ -355,7 +354,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Adds a new row to replace the completed (and deleted) row.
             squares.forEach(cell => grid.appendChild(cell))
-
         }
 
         // Resets everything
@@ -372,11 +370,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
         isGameOver = false;
         isPaused = false;
+        firstStarted = false;
 
-        //undraw();
+        clearInterval(timerId);
+        timerId = null;
+
+        undraw();
+
+        // Removes the current tetromino from the last game and creates a new one.
+        random = nextRandom;
+        nextRandom = Math.floor(Math.random() * theTetrominoes.length);
+        current = theTetrominoes[random][currentRotation]
+        currentPosition = 4;
         //draw();
-        //clearInterval(timerId);
-        //timerId = setInterval(moveDown, levelSpeed);
+
+        // Changes the statuses
+        gameStatus.innerHTML = '';
+        startBtn.innerHTML = 'Start Game &nbsp; &#9658;';
 
     }
 
@@ -462,7 +472,6 @@ document.addEventListener('DOMContentLoaded', () => {
             levelDisplay.innerHTML = level;
             clearInterval(timerId);
             timerId = setInterval(moveDown, levelSpeed);
-            //console.log("Level speed is currently: " + levelSpeed);
         }
 
     }

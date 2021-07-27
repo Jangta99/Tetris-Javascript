@@ -1,0 +1,114 @@
+body {
+    /* background-image: url("tetris-bg-6.jpg"); */
+    background-position: center;
+    background-image: url("http://www.popsori.com/wp-content/uploads/2021/07/tetris-bg.png");
+}
+
+.container {
+    display: flex;
+    margin-top: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 600px;
+    width: 100%;
+}
+
+.stats {
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 30px;
+    margin-left: 10px;
+    color: white;
+}
+
+.grid {
+    width: 200px;
+    height: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: black;
+    border: 2px solid lightblue;
+}
+
+.grid div {
+    height: 20px;
+    width: 20px;
+}
+
+.tetromino {
+   background-color: blue;
+}
+
+.mini-grid {
+    margin-left: 10px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: black;
+    border: 2px solid lightblue;
+}
+
+.mini-grid div {
+    height: 20px;
+    width: 20px;
+}
+
+.next-block {
+    margin-left: 50px;
+    max-height: 150px;
+    color: white;
+}
+
+h3#next-block-text{
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-weight: 400;
+    margin-left: 10px;
+}
+
+#start-button { 
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 170px;
+    width: 100%;
+    display: block;
+    margin-bottom: 50px;
+    margin-top: 30px;
+    background: #339DFF;
+    color: white;
+    border-radius: 50px;   
+    line-height: 38px;
+    border: none;
+    cursor: pointer;
+}
+
+#start-button:hover {
+    background: #fff;
+    color: #339DFF;
+    box-shadow: 0 4px 4px rgba(83, 100, 255, 0.32);
+  }
+
+h3#header-score,
+h3#header-lines,
+h3#header-level {
+    border-radius: 5px;
+    border: 2px solid lightblue;
+    /* padding: 10px; */
+    font-weight: 400;
+    width: 250px;
+    background: rgba(24, 97, 214, 0.7);
+}
+
+.top-stats,
+.bottom-stats {
+    padding: 5px 10px;
+}
+
+.top-stats {
+    border-bottom: 2px solid lightblue;
+}
+
+.bottom-stats {
+    background-color: rgba(11, 28, 56, 0.8);
+}
